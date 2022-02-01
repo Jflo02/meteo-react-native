@@ -1,14 +1,14 @@
-import { Api } from '../models/Api';
-
+import Api from '../models/Api';
+import 
 
 class controller {
 
 
     FeatherForecast(research){
         
-        let obj = new Api();
+        var obj = new Api();
         valueReseach = obj.search(research);
-
+        
     }
 
 
