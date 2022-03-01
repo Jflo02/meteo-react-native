@@ -2,6 +2,7 @@ import * as React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import SearchCity from './SearchCity'
+import MeteoCity from './MeteoCity'
 
 const Stack = createNativeStackNavigator()
 
@@ -14,6 +15,7 @@ const App = () => {
           component={SearchCity}
           options={{ title: 'Accueil' }}
         />
+        <Stack.Screen name="MeteoCity" component={MeteoCity} />
       </Stack.Navigator>
     </NavigationContainer>
   )

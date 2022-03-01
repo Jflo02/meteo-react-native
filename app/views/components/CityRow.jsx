@@ -1,12 +1,16 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, Pressable } from 'react-native'
 
-const CityRow = ({ city }) => (
-  <View style={styles.row}>
-    <View>
-      <Text style={styles.primaryText}>{city}</Text>
+const CityRow = ({ item, navigation }) => (
+  <Pressable
+    onPress={() => navigation.navigate('MeteoCity', { insee: item.insee })}
+  >
+    <View style={styles.row}>
+      <View>
+        <Text style={styles.primaryText}>{item.name}</Text>
+      </View>
     </View>
-  </View>
+  </Pressable>
 )
 
 const styles = StyleSheet.create({

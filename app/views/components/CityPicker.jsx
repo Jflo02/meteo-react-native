@@ -1,9 +1,12 @@
 import React from 'react'
 import { FlatList, Text } from 'react-native'
-import UserRow from './CityRow'
-const CityPicker = ({ cities }) => {
+import CityRow from './CityRow'
+
+const CityPicker = ({ cities, navigation }) => {
   const _renderItem = ({ item }) =>
-    cities.indexOf(item) < 5 && <UserRow city={item.name}></UserRow>
+    cities.indexOf(item) < 5 && (
+      <CityRow navigation={navigation} item={item}></CityRow>
+    )
 
   return <FlatList data={cities} renderItem={_renderItem} />
 }

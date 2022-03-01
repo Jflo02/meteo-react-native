@@ -1,7 +1,10 @@
 import axios from 'axios'
+// import env from 'react-native-dotenv'
+// @ts-ignore
+import { API_TOKEN_2 } from '@env'
 
 export default class Api {
-  token = 'c0dcb222acf4e0a5c94b21def61ff0880e7a2071b4e0778e79ab62189dcd0816'
+  token = API_TOKEN_2
 
   async search(city) {
     const url =

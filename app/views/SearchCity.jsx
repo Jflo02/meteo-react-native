@@ -5,9 +5,8 @@ import Api from '../models/Api'
 import { useEffect } from 'react'
 import CityPicker from './components/CityPicker'
 import { Button } from 'react-native-paper'
-import { NavigationContainer } from '@react-navigation/native';
 
-export default function App() {
+export default function App({ navigation }) {
   const [searchQuery, setSearchQuery] = React.useState('')
   const [valueResearch, setvalueResearch] = React.useState()
 
@@ -21,6 +20,10 @@ export default function App() {
     if (searchQuery.length >= 2) {
       const result = await meteoAPI.search(searchQuery)
       setvalueResearch(result.cities)
+    } 
+    else {
+      // @ts-ignore
+      setvalueResearch([])
     }
   }
   return (
@@ -29,8 +32,12 @@ export default function App() {
         <Text style={styles.text}>
           Bienvenue sur votre application météo favorite Entrez une ville
         </Text>
-        <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-        <CityPicker cities={valueResearch} />
+        <SearchBar
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          setvalueResearch={setvalueResearch}
+        />
+        <CityPicker navigation={navigation} cities={valueResearch} />
         <Button onPress={() => console.log(valueResearch)}>cc</Button>
       </View>
     </View>
