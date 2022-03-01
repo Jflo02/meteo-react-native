@@ -19,8 +19,7 @@ export default function App() {
     console.log('searchquery')
     if (searchQuery.length >= 2) {
       const result = await meteoAPI.search(searchQuery)
-      setvalueResearch(result)
-      
+      setvalueResearch(result.cities)
     }
   }
   return (
@@ -30,7 +29,7 @@ export default function App() {
           Bienvenue sur votre application météo favorite Entrez une ville
         </Text>
         <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-        <CityPicker cities={['lille', 'marseille', 'paris']} />
+        <CityPicker cities={valueResearch} />
         <Button onPress={() => console.log(valueResearch)}>cc</Button>
       </View>
     </View>
