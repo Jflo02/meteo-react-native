@@ -1,9 +1,12 @@
 import React from 'react'
 import { View, Text, StyleSheet, Pressable } from 'react-native'
 
-const CityRow = ({ item, navigation }) => (
+const CityRow = ({ item, navigation, setSearchQuery }) => (
   <Pressable
-    onPress={() => navigation.navigate('MeteoCity', { insee: item.insee })}
+    onPress={() => {
+      navigation.navigate('MeteoCity', { insee: item.insee })
+      setSearchQuery('')
+    }}
   >
     <View style={styles.row}>
       <View>

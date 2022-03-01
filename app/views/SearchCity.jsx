@@ -4,7 +4,6 @@ import SearchBar from './components/SearchBar'
 import Api from '../models/Api'
 import { useEffect } from 'react'
 import CityPicker from './components/CityPicker'
-import { Button } from 'react-native-paper'
 
 export default function App({ navigation }) {
   const [searchQuery, setSearchQuery] = React.useState('')
@@ -20,25 +19,29 @@ export default function App({ navigation }) {
     if (searchQuery.length >= 2) {
       const result = await meteoAPI.search(searchQuery)
       setvalueResearch(result.cities)
-    } 
-    else {
+    } else {
       // @ts-ignore
       setvalueResearch([])
     }
   }
   return (
     <View style={styles.container}>
-      <View style={{ margin: 20 }}>
+      <View style={styles.headerContainer}>
         <Text style={styles.text}>
-          Bienvenue sur votre application météo favorite Entrez une ville
+          Bienvenue sur votre application météo favorite
         </Text>
+      </View>
+      <View style={styles.bodyContainer}>
         <SearchBar
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
           setvalueResearch={setvalueResearch}
         />
-        <CityPicker navigation={navigation} cities={valueResearch} />
-        <Button onPress={() => console.log(valueResearch)}>cc</Button>
+        <CityPicker
+          navigation={navigation}
+          cities={valueResearch}
+          setSearchQuery={setSearchQuery}
+        />
       </View>
     </View>
   )
@@ -49,13 +52,27 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: `rgb(63,94,251)`,
+    backgroundColor: `#add8e6`,
   },
   text: {
     margin: 20,
-    marginBottom: 50,
+    marginBottom: 100,
+    fontSize: 20,
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
+  },
+  headerContainer: {
+    flex: 1,
+    alignItems: 'flex-start',
+    justifyContent: 'flex-end',
+    paddingLeft: 25,
+    marginBottom: 40,
+  },
+  bodyContainer: {
+    flex: 1,
+
+    marginBottom: 40,
   },
   searchBar: {},
 })

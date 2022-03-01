@@ -1,5 +1,4 @@
 import axios from 'axios'
-// import env from 'react-native-dotenv'
 // @ts-ignore
 import { API_TOKEN_2 } from '@env'
 
@@ -15,9 +14,18 @@ export default class Api {
     return await axios.get(url).then((response) => response.data)
   }
 
-  async forecasts(insee) {
+  async getMeteoForCityFor14Days(insee) {
     const url =
       'https://api.meteo-concept.com/api/forecast/daily?token=' +
+      this.token +
+      '&insee=' +
+      insee
+    return await axios.get(url).then((response) => response.data)
+  }
+
+  async getMeteoForCityForNextHour(insee) {
+    const url =
+      'https://api.meteo-concept.com/api/forecast/daily/periods?token=' +
       this.token +
       '&insee=' +
       insee
