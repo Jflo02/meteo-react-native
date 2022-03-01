@@ -9,7 +9,7 @@ export default class Api {
       this.token +
       '&search=' +
       city
-    return await axios.get(url).then((response) => response)
+    return await axios.get(url).then((response) => response.data)
   }
 
   async forecasts(insee) {
