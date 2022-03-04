@@ -7,6 +7,8 @@ import weatherCode from '../services/weatherCode'
 
 const MeteoCity = ({ navigation, route }) => {
   const meteoAPI = new Api()
+
+  const [meteoCityFor5Days, setMeteoCityFor5Days] = React.useState({})
   //Objet factice pour eviter les erreurs dans le code
   const [meteoCity, setMeteoCity] = React.useState({
     city: { name: '' },
@@ -44,6 +46,7 @@ const MeteoCity = ({ navigation, route }) => {
 
   useEffect(() => {
     getMeteoForCity(route.params.insee)
+    getMeteoForCity5days(route.params.insee)
   }, [])
 
   const getMeteoForCity = async (insee) => {
@@ -51,6 +54,20 @@ const MeteoCity = ({ navigation, route }) => {
     setMeteoCity(result)
     setLoading(false)
   }
+
+  const getMeteoForCity5days = async (insee) => {
+    const result = await meteoAPI.getMeteoForCityFor5Days(insee)
+    setMeteoCityFor5Days(result)
+  }
+
+  const dateFormat = (dateISO) => {
+    const date = new Date(dateISO)
+    const dateFormat =
+      date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear() //prints expected format.
+
+    return dateFormat
+  }
+
   return (
     <>
       {!loading && (
@@ -64,7 +81,17 @@ const MeteoCity = ({ navigation, route }) => {
                 {weatherCode[meteoCity.forecast[0][3].weather]}
               </Text>
             </View>
-            <Button onPress={() => console.log('debug')}>DEBUG</Button>
+            <View style={styles.weatherContainer}>
+              {meteoCityFor5Days.map((meteoCity1Day) => (
+                <Text style={styles.subtitle} key={meteoCity1Day.datetime}>
+                  Date : {dateFormat(meteoCity1Day.datetime)}{' '}
+                  {weatherCode[meteoCity1Day.weather]} T°Max :{' '}
+                  {meteoCity1Day.tmax} T°Min :{meteoCity1Day.tmin} Rafale de
+                  vent à 10 mètres : {meteoCity1Day.wind10m}
+                  {' km/h '}
+                </Text>
+              ))}
+            </View>
           </View>
         </>
       )}

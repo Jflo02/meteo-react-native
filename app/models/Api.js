@@ -14,13 +14,16 @@ export default class Api {
     return await axios.get(url).then((response) => response.data)
   }
 
-  async getMeteoForCityFor14Days(insee) {
+  async getMeteoForCityFor5Days(insee) {
     const url =
       'https://api.meteo-concept.com/api/forecast/daily?token=' +
       this.token +
       '&insee=' +
       insee
-    return await axios.get(url).then((response) => response.data)
+
+    const result = await axios.get(url).then((response) => response.data)
+
+    return result.forecast.slice(1,6)
   }
 
   async getMeteoForCityForNextHour(insee) {
