@@ -70,8 +70,8 @@ const styles = StyleSheet.create({
   },
   bodyContainer: {
     flex: 1,
-
     marginBottom: 40,
+    minWidth: 100,
   },
   searchBar: {},
 })

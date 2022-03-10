@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { useEffect } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
-import { Button } from 'react-native-elements'
+import { View, Text, StyleSheet, FlatList } from 'react-native'
 import Api from '../models/Api'
 import weatherCode from '../services/weatherCode'
 
@@ -68,6 +67,20 @@ const MeteoCity = ({ navigation, route }) => {
     return dateFormat
   }
 
+  const renderItem = ({ item }) => (
+    <View style={styles.previsionView} key={item.datetime}>
+      <Text style={styles.previsionTitle}>{dateFormat(item.datetime)}</Text>
+      <Text>{weatherCode[item.weather]}</Text>
+      <Text>
+        T°Max : {item.tmax} T°Min : {item.tmin}
+      </Text>
+      <Text>
+        Rafale de vent à 10 mètres : {item.wind10m}
+        {' km/h '}
+      </Text>
+    </View>
+  )
+
   return (
     <>
       {!loading && (
@@ -82,15 +95,11 @@ const MeteoCity = ({ navigation, route }) => {
               </Text>
             </View>
             <View style={styles.weatherContainer}>
-              {meteoCityFor5Days.map((meteoCity1Day) => (
-                <Text style={styles.subtitle} key={meteoCity1Day.datetime}>
-                  Date : {dateFormat(meteoCity1Day.datetime)}{' '}
-                  {weatherCode[meteoCity1Day.weather]} T°Max :{' '}
-                  {meteoCity1Day.tmax} T°Min :{meteoCity1Day.tmin} Rafale de
-                  vent à 10 mètres : {meteoCity1Day.wind10m}
-                  {' km/h '}
-                </Text>
-              ))}
+              <FlatList
+                data={meteoCityFor5Days}
+                renderItem={renderItem}
+                keyExtractor={(item) => item.id}
+              />
             </View>
           </View>
         </>
@@ -127,6 +136,18 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 24,
     color: '#fff',
+  },
+  previsionView: {
+    backgroundColor: '#98D7DC',
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  previsionTitle: {
+    fontSize: 20,
+    marginBottom: 3,
   },
 })
 
