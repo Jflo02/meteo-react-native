@@ -15,7 +15,6 @@ export default function App({ navigation }) {
   }, [searchQuery])
 
   const fetchMeteo = async (searchQuery) => {
-    console.log('searchquery')
     if (searchQuery.length >= 2) {
       const result = await meteoAPI.search(searchQuery)
       setvalueResearch(result.cities)
